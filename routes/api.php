@@ -18,4 +18,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::get('/products', \App\Http\Controllers\GetProductsController::class);
+Route::get('/products/{section}', \App\Http\Controllers\GetProductsController::class);
+
+Route::group(['prefix' => 'v2'], function () {
+    Route::get('/products', \App\Http\Controllers\v2\GetProductsController::class);
+    Route::get('/products/{section}', \App\Http\Controllers\v2\GetProductsController::class);
+});
