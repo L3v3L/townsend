@@ -20,9 +20,15 @@ class GetProductsController extends Controller
         $this->imagesDomain = "https://img.tmstor.es/";
     }
 
-    public function __invoke()
+    public function __invoke(Request $request, $section = '%'): array
     {
-        return $this->getStoreProductsBySectionWithPaginationAndSorting($this->storeId, '%', $_GET['number'] ?? null, $_GET['page'] ?? null, $_GET['sort'] ?? 0);
+        return $this->getStoreProductsBySectionWithPaginationAndSorting(
+            store_id: $this->storeId,
+            section: $section,
+            number: $request->get('number') ?? null,
+            page: $request->get('page') ?? null,
+            sort: $request->get('sort') ?? 0
+        );
     }
 
     public function getStoreProductsBySectionWithPaginationAndSorting($store_id, $section, $number = null, $page = 'null', $sort = 0)
